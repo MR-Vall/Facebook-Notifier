@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Notifier</title>
+    <style>
+        /* Add any custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #login-button {
+            padding: 10px 20px;
+            background-color: #4267B2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #saved-items-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #saved-items-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Facebook Notifier</h1>
+    <button id="login-button">Log in with Facebook</button>
+    <ul id="saved-items-list"></ul>
+    
+    <!-- Include the Facebook SDK script -->
+    <script>
+        // Initialize Facebook SDK with your App ID
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '2239466229751440', // Replace with your Facebook App ID
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v19.0' // Use v19 instead of v12
+          });
+        };
+    
+        // Load the Facebook SDK asynchronously
+        (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    
+    <!-- Include your popup JavaScript file -->
+    <script src="popup.js"></script>
+</body>
+</html>
