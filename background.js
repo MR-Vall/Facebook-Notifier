@@ -1,20 +1,21 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === "login") {
-      var redirectUri = chrome.identity.getRedirectURL();
-      var authUrl = `https://www.facebook.com/dialog/oauth?client_id=${2239466229751440}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user_posts,user_likes`;
-  
-      chrome.identity.launchWebAuthFlow({
-        url: authUrl,
-        interactive: true
-      }, function(redirectUrl) {
-        if (chrome.runtime.lastError || !redirectUrl) {
-          sendResponse({error: chrome.runtime.lastError});
-          return;
-        }
-        var accessToken = new URLSearchParams(new URL(redirectUrl).hash.substring(1)).get('access_token');
-        sendResponse({token: accessToken});
-      });
-      return true; // Indicates that the response is asynchronous
-    }
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete' && tab.url.includes('facebook.com') && tab.url.includes('/marketplace/item/')) {
+    chrome.action.setBadgeText({ text: 'Save', tabId: tabId });
+    chrome.action.setBadgeBackgroundColor({ color: '#008000', tabId: tabId });
+    chrome.action.setPopup({ popup: 'popup.html', tabId: tabId });
+  } else {
+    chrome.action.setBadgeText({ text: '', tabId: tabId });
+  }
+});
+
+// Periodically check for changes to saved items
+setInterval(() => {
+  chrome.storage.local.get('savedItems', (data) => {
+    const savedItems = data.savedItems || [];
+    // Implement logic to check for changes to saved items
+    // You can compare the current state of the items with the previously saved state
+    // If there are changes, notify the user accordingly
+    // For simplicity, you can just log the saved items here
+    console.log('Saved Items:', savedItems);
   });
-  
+}, 60000); // Check every 1 minute (adjust as needed)

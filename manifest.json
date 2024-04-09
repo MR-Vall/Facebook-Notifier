@@ -1,33 +1,23 @@
   {
-      "manifest_version": 2,
+      "manifest_version": 3,
       "name": "Facebook Notifier",
       "version": "1.0",
       "description": "This extension will notify you when an item has been updated from marketplace.",
-      "permissions": ["https://graph.facebook.com/*", "activeTab", "user_posts", "storage"],
-      "browser_action": {
-        "default_popup": "popup.html",
-        "default_icon": "icon.png"
-      },
-      "oauth2": {
-        "client_id": "2239466229751440",
-        "scopes": [
-          "https://www.googleapis.com/auth/userinfo.email"
-        ]
-      },
-      "content_scripts": [
-        {
-          "matches": ["<all_urls>"],
-          "js": ["content.js"]
-        }
-      ],
-      "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
-      },
+      "permissions": ["storage", "tabs"],
       "background": {
-        "scripts": ["background.js"],
-        "persistent": false
+        "service_worker": "background.js"
+      },
+      "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+          "16": "Pictures/facebook16.png",
+          "48": "Pictures/facebook48.png",
+          "128": "Pictures/facebook128.png"
+        }
+      },
+      "icons": {
+        "16": "Pictures/facebook16.png",
+        "48": "Pictures/facebook48.png",
+        "128": "Pictures/facebook128.png"
       }
-    }
-    
+  }   
