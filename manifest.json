@@ -3,7 +3,7 @@
       "name": "Facebook Notifier",
       "version": "1.0",
       "description": "This extension will notify you when an item has been updated from marketplace.",
-      "permissions": ["storage", "tabs"],
+      "permissions": ["storage", "tabs", "activeTab"],
       "background": {
         "service_worker": "background.js"
       },
